@@ -27,9 +27,9 @@ namespace Kloud.CodeTest.Web.Controllers
         /// <summary>
         /// Get Owner Names By Brand
         /// </summary>
-        /// <returns>Enumerable of OwnerNamesByBrand</returns>
+        /// <returns>List of OwnerNamesByBrand</returns>
         [HttpGet]
-        public async Task<IEnumerable<CarDataDto>> Get()
+        public async Task<IList<CarDataDto>> Get()
         {
             var result = await _carDataService.GetOwnerNamesByBrandAsync();
             return result;

@@ -25,18 +25,18 @@ namespace Kloud.CodeTest.Core.Services
         /// <summary>
         /// Get Owner Names By Brand Async
         /// </summary>
-        /// <returns>Enumerable of OwnerNamesByBrand</returns>
-        public async Task<IEnumerable<CarDataDto>> GetOwnerNamesByBrandAsync()
+        /// <returns>List of OwnerNamesByBrand</returns>
+        public async Task<IList<CarDataDto>> GetOwnerNamesByBrandAsync()
         {
             var data = await _carDataProvider.GetAsync();
 
             var results = (from d in data
-                          from c in d.Cars
-                          where !string.IsNullOrEmpty(d.Name)
-                          group d by  c.Brand
+                           from c in d.Cars
+                           where !string.IsNullOrEmpty(d.Name)
+                           group d by c.Brand
                           into g
-                          orderby g.Key
-                          select new CarDataDto { Brand = g.Key }).ToList();
+                           orderby g.Key
+                           select new CarDataDto { Brand = g.Key }).ToList();
 
             if (results != null)
             {

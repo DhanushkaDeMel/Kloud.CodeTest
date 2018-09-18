@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Kloud.CodeTest.Core.Dto
+﻿namespace Kloud.CodeTest.Core.Dto
 {
     /// <summary>
     /// OwnerDataDto DTO

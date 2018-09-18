@@ -2,8 +2,9 @@
 using Kloud.CodeTest.Core.Contracts.DataProviders;
 using Kloud.CodeTest.Core.Contracts.Services;
 using Kloud.CodeTest.Core.DataProviders;
-using Kloud.CodeTest.Core.Services;
 using Kloud.CodeTest.Core.Dto;
+using Kloud.CodeTest.Core.Services;
+using Kloud.CodeTest.Web.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,7 +13,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
-using Kloud.CodeTest.Web.Models;
 
 namespace Kloud.CodeTest.Web
 {

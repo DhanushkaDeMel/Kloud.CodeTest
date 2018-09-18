@@ -12,7 +12,7 @@ namespace Kloud.CodeTest.Core.Contracts.DataProviders
         /// <summary>
         /// Get JSON Data
         /// </summary>
-        /// <returns>Enumerable of Owner</returns>
-        Task<IEnumerable<Owner>> GetAsync();
+        /// <returns>List of Owner</returns>
+        Task<IList<Owner>> GetAsync();
     }
 }

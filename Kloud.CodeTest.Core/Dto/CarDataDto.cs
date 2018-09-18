@@ -20,6 +20,4 @@ namespace Kloud.CodeTest.Core.Dto
             }
         }
     }
-
-   
 }

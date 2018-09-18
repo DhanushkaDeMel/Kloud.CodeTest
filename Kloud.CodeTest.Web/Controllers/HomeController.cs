@@ -33,7 +33,7 @@ namespace Kloud.CodeTest.Web.Controllers
         public IActionResult Index()
         {
             var result = _carDataService.GetOwnerNamesByBrandAsync().Result;
-            var model = _mapper.Map<IEnumerable<HomeViewModel>>(result);
+            var model = _mapper.Map<IList<HomeViewModel>>(result);
 
             return View(model);
         }

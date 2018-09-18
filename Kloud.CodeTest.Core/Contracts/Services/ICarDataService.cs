@@ -12,7 +12,7 @@ namespace Kloud.CodeTest.Core.Contracts.Services
         /// <summary>
         /// Get Owner Names By Brand Async
         /// </summary>
-        /// <returns>Enumerable of OwnerNamesByBrand</returns>
-        Task<IEnumerable<CarDataDto>> GetOwnerNamesByBrandAsync();
+        /// <returns>List of OwnerNamesByBrand</returns>
+        Task<IList<CarDataDto>> GetOwnerNamesByBrandAsync();
     }
 }

@@ -31,21 +31,19 @@ namespace Kloud.CodeTest.Core.DataProviders
         /// <summary>
         /// Get JSON Data
         /// </summary>
-        /// <returns>Enumerable of Owner</returns>
-        public async Task<IEnumerable<Owner>> GetAsync()
+        /// <returns>List of Owner</returns>
+        public async Task<IList<Owner>> GetAsync()
         {
-            IEnumerable<Owner> result = null;
+            IList<Owner> result = null;
 
             try
             {
                 var content = await _httpClient.GetStringAsync(API_ENDPOINT);
-                result = JsonConvert.DeserializeObject<IEnumerable<Owner>>(content);
-
-                return result;
+                result = JsonConvert.DeserializeObject<IList<Owner>>(content);
             }
             catch
             {
-                // Log the error
+                return result;
             }
 
             return result;
