@@ -1,0 +1,19 @@
+﻿@model IList<Kloud.CodeTest.Web.Models.HomeViewModel>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@foreach (var item in Model)
+{
+    <b>@item.Brand</b>
+    if (item.Owners != null)
+    {
+        <ul>
+            @foreach (var owner in item.Owners)
+            {
+                <li>@owner</li>
+            }
+        </ul>
+    }
+}
