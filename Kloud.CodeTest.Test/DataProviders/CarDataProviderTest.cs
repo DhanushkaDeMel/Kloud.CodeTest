@@ -9,7 +9,7 @@ namespace Kloud.CodeTest.Test.DataProviders
     public class CarDataProviderTest
     {
         [Test]
-        public void WhenServerReturn_Error()
+        public void When_ServerReturn_Error()
         {
             var client = TestBase.MockHttpClient(HttpStatusCode.InternalServerError, string.Empty);
 
@@ -20,7 +20,7 @@ namespace Kloud.CodeTest.Test.DataProviders
         }
 
         [Test]
-        public void WhenServerReturn_Success_Empty()
+        public void When_ServerReturn_Success_Empty()
         {
             var client = TestBase.MockHttpClient(HttpStatusCode.OK, "[]");
 
@@ -31,7 +31,7 @@ namespace Kloud.CodeTest.Test.DataProviders
         }
 
         [Test]
-        public void WhenServerReturn_Success_1_Item()
+        public void When_ServerReturn_Success_Data()
         {
             string json = "[{\"name\":\"Bradley\",\"cars\":[{\"brand\":\"MG\",\"colour\":\"Blue\"}]}]";
             var client = TestBase.MockHttpClient(HttpStatusCode.OK, json);
@@ -43,7 +43,7 @@ namespace Kloud.CodeTest.Test.DataProviders
         }
 
         [Test]
-        public void WhenServerReturn_Success_InvalidJson()
+        public void When_ServerReturn_Success_InvalidJson()
         {
             string json = "[{\"id\":\"10001\"}]";
             var client = TestBase.MockHttpClient(HttpStatusCode.OK, json);
