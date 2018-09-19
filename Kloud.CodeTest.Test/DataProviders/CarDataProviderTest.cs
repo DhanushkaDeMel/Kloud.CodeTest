@@ -1,86 +1,57 @@
-﻿using Kloud.CodeTest.Core.Configurations;
-using Kloud.CodeTest.Core.Contracts.DataProviders;
+﻿using Kloud.CodeTest.Core.Contracts.DataProviders;
 using Kloud.CodeTest.Core.DataProviders;
-using Microsoft.Extensions.Options;
+using Kloud.CodeTest.Test.Shared;
 using NUnit.Framework;
-using RichardSzalay.MockHttp;
-using System;
 using System.Net;
-using System.Net.Http;
 
 namespace Kloud.CodeTest.Test.DataProviders
 {
     public class CarDataProviderTest
     {
-        private readonly IOptions<AppSettings> appSettings;
-
-        public CarDataProviderTest()
-        {
-            appSettings = Options.Create(new AppSettings() { WebServiceUrl = "http://localhost" });
-        }
-
-        private HttpClient MockHttpClient(HttpStatusCode httpStatusCode, string json)
-        {
-            var mockHttp = new MockHttpMessageHandler();
-            var mockRequest = mockHttp.When("http://localhost/api/cars");
-
-            if (!string.IsNullOrEmpty(json))
-            {
-                mockRequest.Respond(httpStatusCode, "application/json", json);
-            }
-            else
-            {
-                mockRequest.Respond(httpStatusCode);
-            }
-            var client = mockHttp.ToHttpClient();
-            client.BaseAddress = new Uri("http://localhost");
-            return client;
-        }
-
         [Test]
         public void WhenServerReturn_Error()
         {
-            var client = MockHttpClient(HttpStatusCode.InternalServerError, string.Empty);
+            var client = TestBase.MockHttpClient(HttpStatusCode.InternalServerError, string.Empty);
 
-            ICarDataProvider service = new CarDataProvider(client, appSettings);
-            var data = service.GetAsync();
+            ICarDataProvider provider = new CarDataProvider(client, TestBase.MockAppSettings());
+            var data = provider.GetAsync().Result;
 
-            Assert.IsNull(data.Result);
+            Assert.IsNull(data);
         }
 
         [Test]
         public void WhenServerReturn_Success_Empty()
         {
-            var client = MockHttpClient(HttpStatusCode.OK, "[]");
+            var client = TestBase.MockHttpClient(HttpStatusCode.OK, "[]");
 
-            ICarDataProvider service = new CarDataProvider(client, appSettings);
-            var data = service.GetAsync();
+            ICarDataProvider provider = new CarDataProvider(client, TestBase.MockAppSettings());
+            var data = provider.GetAsync().Result;
 
-            Assert.AreEqual(data.Result.Count, 0);
+            Assert.AreEqual(data.Count, 0);
         }
 
         [Test]
         public void WhenServerReturn_Success_1_Item()
         {
             string json = "[{\"name\":\"Bradley\",\"cars\":[{\"brand\":\"MG\",\"colour\":\"Blue\"}]}]";
-            var client = MockHttpClient(HttpStatusCode.OK, json);
+            var client = TestBase.MockHttpClient(HttpStatusCode.OK, json);
 
-            ICarDataProvider service = new CarDataProvider(client, appSettings);
-            var data = service.GetAsync();
+            ICarDataProvider provider = new CarDataProvider(client, TestBase.MockAppSettings());
+            var data = provider.GetAsync().Result;
 
-            Assert.AreEqual(1, data.Result.Count);
+            Assert.AreEqual(1, data.Count);
         }
 
         [Test]
         public void WhenServerReturn_Success_InvalidJson()
         {
             string json = "[{\"id\":\"10001\"}]";
-            var client = MockHttpClient(HttpStatusCode.OK, json);
+            var client = TestBase.MockHttpClient(HttpStatusCode.OK, json);
 
-            ICarDataProvider service = new CarDataProvider(client, appSettings);
-            var data = service.GetAsync();
+            ICarDataProvider provider = new CarDataProvider(client, TestBase.MockAppSettings());
+            var data = provider.GetAsync().Result;
 
-            Assert.IsNull(data.Result[0].Name);
+            Assert.IsNull(data[0].Name);
         }
     }
 }

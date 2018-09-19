@@ -32,22 +32,21 @@ namespace Kloud.CodeTest.Core.Services
 
             var results = (from d in data
                            from c in d.Cars
-                           where !string.IsNullOrEmpty(d.Name)
                            group d by c.Brand
-                          into g
-                           orderby g.Key
-                           select new CarDataDto { Brand = g.Key }).ToList();
+                           into o
+                           orderby o.Key
+                           select new CarDataDto { Brand = o.Key }).ToList();
 
             if (results != null)
             {
                 for (int index = 0; index < results.Count; index++)
                 {
-                    var nestedResult = (from d in data
-                                        from c in d.Cars
-                                        where !string.IsNullOrEmpty(d.Name) && c.Brand == results[index].Brand
-                                        select new OwnerDataDto { Owners = d.Name, Colour = c.Colour }).ToList();
+                    var nestedResults = (from d in data
+                                         from c in d.Cars
+                                         where !string.IsNullOrEmpty(d.Name) && c.Brand == results[index].Brand
+                                         select new OwnerDataDto { Owners = d.Name, Colour = c.Colour }).ToList();
 
-                    results[index].OwnerData = nestedResult;
+                    results[index].OwnerData = nestedResults;
                 }
             }
 
